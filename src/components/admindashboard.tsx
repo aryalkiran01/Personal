@@ -31,6 +31,7 @@ const AdminDashboard = () => {
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+const API_URL = import.meta.env.VITE_API_URL;
 
   const authHeaders = {
     headers: {
@@ -45,8 +46,8 @@ const AdminDashboard = () => {
       return;
     }
     setLoading(true);
-    axios
-      .get("http://localhost:5000/api/admin/contacts", authHeaders)
+    
+axios.get(`${API_URL}/api/admin/contacts`, authHeaders)
       .then(() => {
         setIsAuthenticated(true);
         fetchData(view);
@@ -61,8 +62,7 @@ const AdminDashboard = () => {
     setError(null);
     setLoading(true);
     if (currentView === "tracking") {
-      axios
-        .get("http://localhost:5000/api/admin/tracking", authHeaders)
+      axios.get(`${API_URL}/api/admin/tracking`, authHeaders)
         .then((res) => {
           if (res.data.success) setTrackingLogs(res.data.tracking);
           else setError("Failed to fetch tracking logs.");
@@ -73,8 +73,8 @@ const AdminDashboard = () => {
           setLoading(false);
         });
     } else {
-      axios
-        .get("http://localhost:5000/api/admin/contacts", authHeaders)
+            axios.get(`${API_URL}/api/admin/contacts`, authHeaders)
+
         .then((res) => {
           if (res.data.success) setContacts(res.data.contacts);
           else setError("Failed to fetch contacts.");
@@ -229,8 +229,10 @@ const AdminDashboard = () => {
             width: window.screen.width,
             height: window.screen.height,
           };
+          //            axios.get(`${API_URL}/api/admin/contacts`, authHeaders)
 
-          fetch("http://localhost:5000/api/track", {
+
+          fetch(`${API_URL}/api/admin/contacts`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -368,8 +370,9 @@ const AdminDashboard = () => {
                     <td style={tableCellStyle}>{log.language}</td>
                     <td style={tableCellStyle}>
                          {log.imagePath ? (
+                            // `${API_URL}/api/admin/contacts`
     <img
-      src={`http://localhost:5000${log.imagePath}?t=${new Date(log.timestamp).getTime()}`}
+      src={`${API_URL}${log.imagePath}?t=${new Date(log.timestamp).getTime()}`}
       alt="User snapshot"
       width={120}
       height={90}

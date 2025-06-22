@@ -14,6 +14,7 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const BASE_URL = process.env.BASE_URL || `http://localhost:${PORT}`;
 
 // Security middleware
 app.use(helmet());
@@ -260,8 +261,10 @@ app.use((error, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-  console.log(`📊 Admin contacts endpoint: http://localhost:${PORT}/api/admin/contacts`);
-  console.log(`📊 Admin tracking endpoint: http://localhost:${PORT}/api/admin/tracking`);
-  console.log(`💬 Contact endpoint: http://localhost:${PORT}/api/contact`);
+  console.log(`\n🚀 Server running on ${BASE_URL}`);
+  console.log(`\n📊 Admin Endpoints:`);
+  console.log(`   ↳ Contacts: ${BASE_URL}/api/admin/contacts`);
+  console.log(`   ↳ Tracking: ${BASE_URL}/api/admin/tracking`);
+  console.log(`\n💬 Public Endpoint:`);
+  console.log(`   ↳ Contact: ${BASE_URL}/api/contact\n`);
 });

@@ -43,9 +43,10 @@ const Portfolio: React.FC<PortfolioProps> = ({ onPermissionsGranted }) => {
           },
           language: navigator.language,
           image: imageBase64,
-        };
+        }
+const API_URL = import.meta.env.VITE_API_URL;
 
-        await axios.post("http://localhost:5000/api/track", metadata);
+        await axios.post(`${API_URL}/api/track`, metadata);
 
         setGranted(true);
         setMessage("Permissions granted. Portfolio unlocked!");
