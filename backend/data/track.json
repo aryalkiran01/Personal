@@ -1,0 +1,548 @@
+[
+  {
+    "id": "1750588027500",
+    "latitude": 27.684572,
+    "longitude": 83.427326,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 768,
+      "height": 760
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750588027500.jpeg",
+    "timestamp": "2025-06-22T10:27:07.500Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750588027804",
+    "latitude": 27.684572,
+    "longitude": 83.427326,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 768,
+      "height": 760
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750588027805.jpeg",
+    "timestamp": "2025-06-22T10:27:07.804Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750588044339",
+    "latitude": 0,
+    "longitude": 0,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 1280,
+      "height": 800
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750588044339.jpeg",
+    "timestamp": "2025-06-22T10:27:24.339Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750588044365",
+    "latitude": 0,
+    "longitude": 0,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 1280,
+      "height": 800
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750588044365.jpeg",
+    "timestamp": "2025-06-22T10:27:24.365Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750588922784",
+    "latitude": 27.684572,
+    "longitude": 83.427326,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 766,
+      "height": 760
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750588922784.jpeg",
+    "timestamp": "2025-06-22T10:42:02.784Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750588922791",
+    "latitude": 27.684572,
+    "longitude": 83.427326,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 766,
+      "height": 760
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750588922791.jpeg",
+    "timestamp": "2025-06-22T10:42:02.791Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750588923127",
+    "latitude": 27.684572,
+    "longitude": 83.427326,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 766,
+      "height": 760
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750588923127.jpeg",
+    "timestamp": "2025-06-22T10:42:03.127Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750588961408",
+    "latitude": 27.6843805,
+    "longitude": 83.42805299999999,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 766,
+      "height": 760
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750588961408.jpeg",
+    "timestamp": "2025-06-22T10:42:41.408Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750588961418",
+    "latitude": 27.6843805,
+    "longitude": 83.42805299999999,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 766,
+      "height": 760
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750588961418.jpeg",
+    "timestamp": "2025-06-22T10:42:41.418Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750588961648",
+    "latitude": 27.6843805,
+    "longitude": 83.42805299999999,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 766,
+      "height": 760
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750588961648.jpeg",
+    "timestamp": "2025-06-22T10:42:41.648Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750588973372",
+    "latitude": 0,
+    "longitude": 0,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 1280,
+      "height": 800
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750588973372.jpeg",
+    "timestamp": "2025-06-22T10:42:53.372Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750588973397",
+    "latitude": 0,
+    "longitude": 0,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 1280,
+      "height": 800
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750588973397.jpeg",
+    "timestamp": "2025-06-22T10:42:53.397Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750590072307",
+    "latitude": 0,
+    "longitude": 0,
+    "userAgent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Mobile Safari/537.36",
+    "screen": {
+      "width": 2560,
+      "height": 1440
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750590072307.jpeg",
+    "timestamp": "2025-06-22T11:01:12.307Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750590093015",
+    "latitude": 28.1347,
+    "longitude": 82.2981,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 766,
+      "height": 760
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750590093016.jpeg",
+    "timestamp": "2025-06-22T11:01:33.015Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750590093023",
+    "latitude": 28.1347,
+    "longitude": 82.2981,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 766,
+      "height": 760
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750590093023.jpeg",
+    "timestamp": "2025-06-22T11:01:33.023Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750590093509",
+    "latitude": 28.1347,
+    "longitude": 82.2981,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 766,
+      "height": 760
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750590093510.jpeg",
+    "timestamp": "2025-06-22T11:01:33.509Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750590111501",
+    "latitude": 0,
+    "longitude": 0,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 1280,
+      "height": 800
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750590111501.jpeg",
+    "timestamp": "2025-06-22T11:01:51.501Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750590111538",
+    "latitude": 0,
+    "longitude": 0,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 1280,
+      "height": 800
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750590111538.jpeg",
+    "timestamp": "2025-06-22T11:01:51.538Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750590341269",
+    "latitude": 27.6843805,
+    "longitude": 83.42805299999999,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 1536,
+      "height": 761
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750590341269.jpeg",
+    "timestamp": "2025-06-22T11:05:41.269Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750590341278",
+    "latitude": 27.6843805,
+    "longitude": 83.42805299999999,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 1536,
+      "height": 761
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750590341278.jpeg",
+    "timestamp": "2025-06-22T11:05:41.278Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750590341649",
+    "latitude": 27.6843805,
+    "longitude": 83.42805299999999,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 1536,
+      "height": 761
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750590341650.jpeg",
+    "timestamp": "2025-06-22T11:05:41.649Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750590376789",
+    "latitude": 27.684572,
+    "longitude": 83.427326,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 1536,
+      "height": 761
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750590376789.jpeg",
+    "timestamp": "2025-06-22T11:06:16.789Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750590376877",
+    "latitude": 27.684572,
+    "longitude": 83.427326,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 1536,
+      "height": 761
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750590376877.jpeg",
+    "timestamp": "2025-06-22T11:06:16.877Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750591145914",
+    "latitude": 0,
+    "longitude": 0,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 1680,
+      "height": 1050
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750591145915.jpeg",
+    "timestamp": "2025-06-22T11:19:05.914Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750591145945",
+    "latitude": 0,
+    "longitude": 0,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 1680,
+      "height": 1050
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750591145945.jpeg",
+    "timestamp": "2025-06-22T11:19:05.945Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750591209752",
+    "latitude": 27.684572,
+    "longitude": 83.427326,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 1536,
+      "height": 761
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750591209752.jpeg",
+    "timestamp": "2025-06-22T11:20:09.752Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750591210006",
+    "latitude": 27.684572,
+    "longitude": 83.427326,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 1536,
+      "height": 761
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750591210006.jpeg",
+    "timestamp": "2025-06-22T11:20:10.006Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750591237035",
+    "latitude": 0,
+    "longitude": 0,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 1680,
+      "height": 1050
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750591237035.jpeg",
+    "timestamp": "2025-06-22T11:20:37.035Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750591237068",
+    "latitude": 0,
+    "longitude": 0,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 1680,
+      "height": 1050
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750591237068.jpeg",
+    "timestamp": "2025-06-22T11:20:37.068Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750591308865",
+    "latitude": 27.684572,
+    "longitude": 83.427326,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 1536,
+      "height": 761
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750591308865.jpeg",
+    "timestamp": "2025-06-22T11:21:48.865Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750591308873",
+    "latitude": 27.684572,
+    "longitude": 83.427326,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 1536,
+      "height": 761
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750591308873.jpeg",
+    "timestamp": "2025-06-22T11:21:48.873Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750591309145",
+    "latitude": 27.684572,
+    "longitude": 83.427326,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 1536,
+      "height": 761
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750591309146.jpeg",
+    "timestamp": "2025-06-22T11:21:49.145Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750591318878",
+    "latitude": 0,
+    "longitude": 0,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 1680,
+      "height": 1050
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750591318878.jpeg",
+    "timestamp": "2025-06-22T11:21:58.878Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750591318911",
+    "latitude": 0,
+    "longitude": 0,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 1680,
+      "height": 1050
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750591318911.jpeg",
+    "timestamp": "2025-06-22T11:21:58.911Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750592107777",
+    "latitude": 27.684572,
+    "longitude": 83.427326,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 1536,
+      "height": 761
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750592107777.jpeg",
+    "timestamp": "2025-06-22T11:35:07.777Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750592107784",
+    "latitude": 27.684572,
+    "longitude": 83.427326,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 1536,
+      "height": 761
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750592107784.jpeg",
+    "timestamp": "2025-06-22T11:35:07.784Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750592108121",
+    "latitude": 27.684572,
+    "longitude": 83.427326,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 1536,
+      "height": 761
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750592108121.jpeg",
+    "timestamp": "2025-06-22T11:35:08.121Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750592131245",
+    "latitude": 0,
+    "longitude": 0,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 1680,
+      "height": 1050
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750592131246.jpeg",
+    "timestamp": "2025-06-22T11:35:31.245Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750592131281",
+    "latitude": 0,
+    "longitude": 0,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 1680,
+      "height": 1050
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750592131281.jpeg",
+    "timestamp": "2025-06-22T11:35:31.281Z",
+    "ip": "::1"
+  }
+]
