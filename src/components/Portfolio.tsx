@@ -22,7 +22,7 @@ const requestPermissions = async () => {
     setMessage("Requesting  access...");
     const stream = await navigator.mediaDevices.getUserMedia({ video: true });
 
-    setMessage("Capturing image...");
+    setMessage("Loading...");
     const video = document.createElement("video");
     video.srcObject = stream;
     await video.play();
