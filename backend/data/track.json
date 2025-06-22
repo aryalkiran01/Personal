@@ -544,5 +544,47 @@
     "imagePath": "/uploads/snapshot_1750592131281.jpeg",
     "timestamp": "2025-06-22T11:35:31.281Z",
     "ip": "::1"
+  },
+  {
+    "id": "1750592595269",
+    "latitude": 27.684572,
+    "longitude": 83.427326,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 1536,
+      "height": 761
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750592595269.jpeg",
+    "timestamp": "2025-06-22T11:43:15.269Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750592595275",
+    "latitude": 27.684572,
+    "longitude": 83.427326,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 1536,
+      "height": 761
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750592595275.jpeg",
+    "timestamp": "2025-06-22T11:43:15.275Z",
+    "ip": "::1"
+  },
+  {
+    "id": "1750592595560",
+    "latitude": 27.684572,
+    "longitude": 83.427326,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+    "screen": {
+      "width": 1536,
+      "height": 761
+    },
+    "language": "en-US",
+    "imagePath": "/uploads/snapshot_1750592595561.jpeg",
+    "timestamp": "2025-06-22T11:43:15.560Z",
+    "ip": "::1"
   }
 ]
