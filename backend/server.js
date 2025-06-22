@@ -3,10 +3,10 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
-import fs from 'fs/promises';
+import { MongoClient, ServerApiVersion } from 'mongodb';
 import path from 'path';
 import { fileURLToPath } from 'url';
-
+import fs from 'fs/promises';
 dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
@@ -15,6 +15,40 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 5000;
 const BASE_URL = process.env.BASE_URL || `http://localhost:${PORT}`;
+
+// MongoDB connection setup
+const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017';
+const client = new MongoClient(mongoUri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
+});
+
+let db;
+let contactsCollection;
+let trackingCollection;
+
+async function connectToMongoDB() {
+  try {
+    await client.connect();
+    db = client.db('portfolio_db');
+    contactsCollection = db.collection('contacts');
+    trackingCollection = db.collection('tracking');
+    console.log('Connected to MongoDB successfully');
+    
+    // Create indexes for better query performance
+    await contactsCollection.createIndex({ timestamp: -1 });
+    await trackingCollection.createIndex({ timestamp: -1 });
+    await trackingCollection.createIndex({ ip: 1 });
+  } catch (err) {
+    console.error('MongoDB connection error:', err);
+    process.exit(1);
+  }
+}
+
+connectToMongoDB();
 
 // Security middleware
 app.use(helmet());
@@ -40,23 +74,8 @@ const contactLimiter = rateLimit({
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
-// Ensure data directory exists
-const dataDir = path.join(__dirname, 'data');
-try {
-  await fs.access(dataDir);
-} catch {
-  await fs.mkdir(dataDir, { recursive: true });
-}
-
 // Ensure uploads directory exists
 const uploadsDir = path.join(__dirname, 'uploads');
-
-// Ensure uploads directory exists
-try {
-  await fs.access(uploadsDir);
-} catch {
-  await fs.mkdir(uploadsDir, { recursive: true });
-}
 
 // Serve uploads folder statically for image access
 app.use('/uploads', (req, res, next) => {
@@ -92,39 +111,23 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
       });
     }
 
-    // Store contact submission
-    const contactData = {
-      id: Date.now().toString(),
+    // Create contact document
+    const contactDoc = {
       name,
       email,
       subject,
       message,
-      timestamp: new Date().toISOString(),
+      timestamp: new Date(),
       ip: req.ip
     };
 
-    // Load existing contacts
-    let contacts = [];
-    try {
-      const contactsFile = path.join(dataDir, 'contacts.json');
-      const data = await fs.readFile(contactsFile, 'utf8');
-      contacts = JSON.parse(data);
-    } catch (error) {
-      // File doesn't exist yet, start with empty array
-    }
-await fs.writeFile(filePath, base64Data, 'base64');
-console.log('Saved snapshot image at:', filePath);
-    contacts.push(contactData);
-
-    // Save contacts
-    await fs.writeFile(
-      path.join(dataDir, 'contacts.json'),
-      JSON.stringify(contacts, null, 2)
-    );
-
+    // Insert into MongoDB
+    const result = await contactsCollection.insertOne(contactDoc);
+    
     res.json({ 
       success: true, 
-      message: 'Thank you for your message! I\'ll get back to you soon.' 
+      message: 'Thank you for your message! I\'ll get back to you soon.',
+      id: result.insertedId
     });
 
   } catch (error) {
@@ -149,115 +152,175 @@ const authenticateAdmin = (req, res, next) => {
 };
 
 // Tracking data endpoint
-// Tracking data endpoint
 app.post('/api/track', async (req, res) => {
   try {
     const { latitude, longitude, userAgent, screen, language, image } = req.body;
 
-    const metadata = {
-      id: Date.now().toString(),
+    // Check if this IP already has a record today
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    const existingTrack = await trackingCollection.findOne({
+      ip: req.ip,
+      timestamp: { $gte: today }
+    });
+
+    // If record exists, update it
+    if (existingTrack) {
+      const updateData = {
+        $set: {
+          latitude,
+          longitude,
+          userAgent,
+          screen,
+          language,
+          lastUpdated: new Date()
+        }
+      };
+
+      // Only update image if provided
+      if (image && image.startsWith('data:image/')) {
+        const { imagePath } = await saveImage(image);
+        updateData.$set.imagePath = imagePath;
+      }
+
+      await trackingCollection.updateOne(
+        { _id: existingTrack._id },
+        updateData
+      );
+
+      return res.json({ 
+        success: true, 
+        message: 'Tracking data updated.',
+        action: 'updated'
+      });
+    }
+
+    // Otherwise create new record
+    const trackDoc = {
       latitude,
       longitude,
       userAgent,
       screen,
       language,
-      imagePath: '', // will be set if image is saved
-      timestamp: new Date().toISOString(),
-      ip: req.ip
+      imagePath: '',
+      timestamp: new Date(),
+      ip: req.ip,
+      lastUpdated: new Date()
     };
 
     // Save image if provided
     if (image && image.startsWith('data:image/')) {
-      // Extract file extension
-      try {
-    const match = image.match(/^data:image\/(\w+);base64,/);
-    const extension = match ? match[1] : 'png';
-    const filename = `snapshot_${Date.now()}.${extension}`;
-    const filePath = path.join(uploadsDir, filename);
-    
-    const base64Data = image.replace(/^data:image\/\w+;base64,/, '');
-    await fs.writeFile(filePath, base64Data, 'base64');
-    
-    // Verify the file was written
-    const stats = await fs.stat(filePath);
-    console.log(`Image saved: ${filename}, Size: ${stats.size} bytes`);
-    
-    metadata.imagePath = `/uploads/${filename}`;
-  } catch (err) {
-    console.error('Error saving image:', err);
-  }
+      const { imagePath } = await saveImage(image);
+      trackDoc.imagePath = imagePath;
     }
 
-    // Save to tracking logs
-    const logFile = path.join(dataDir, 'track.json');
-    let logs = [];
-    try {
-      const data = await fs.readFile(logFile, 'utf8');
-      logs = JSON.parse(data);
-    } catch {}
+    // Insert into MongoDB
+    await trackingCollection.insertOne(trackDoc);
 
-    logs.push(metadata);
-    await fs.writeFile(logFile, JSON.stringify(logs, null, 2));
-
-    res.json({ success: true, message: 'Tracking data received.' });
+    res.json({ 
+      success: true, 
+      message: 'Tracking data received.',
+      action: 'created'
+    });
   } catch (err) {
     console.error('Tracking error:', err);
     res.status(500).json({ success: false, error: 'Server error' });
   }
 });
 
+// Helper function to save image
+async function saveImage(imageData) {
+  try {
+    const match = imageData.match(/^data:image\/(\w+);base64,/);
+    const extension = match ? match[1] : 'png';
+    const filename = `snapshot_${Date.now()}.${extension}`;
+    const filePath = path.join(uploadsDir, filename);
+    
+    const base64Data = imageData.replace(/^data:image\/\w+;base64,/, '');
+    await fs.writeFile(filePath, base64Data, 'base64');
+    
+    // Verify the file was written
+    const stats = await fs.stat(filePath);
+    console.log(`Image saved: ${filename}, Size: ${stats.size} bytes`);
+    
+    return { imagePath: `/uploads/${filename}` };
+  } catch (err) {
+    console.error('Error saving image:', err);
+    return { imagePath: '' };
+  }
+}
 
 // Admin route to view contact submissions
 app.get('/api/admin/contacts', authenticateAdmin, async (req, res) => {
   try {
-    const contactsFile = path.join(dataDir, 'contacts.json');
-    const data = await fs.readFile(contactsFile, 'utf8');
-    const contacts = JSON.parse(data);
+    const contacts = await contactsCollection.find()
+      .sort({ timestamp: -1 }) // Most recent first
+      .toArray();
     
     res.json({ 
       success: true, 
-      contacts: contacts.reverse() // Most recent first
+      contacts
     });
   } catch (error) {
-    if (error.code === 'ENOENT') {
-      res.json({ success: true, contacts: [] });
-    } else {
-      console.error('Admin contacts error:', error);
-      res.status(500).json({ error: 'Internal server error' });
-    }
+    console.error('Admin contacts error:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 
 // Admin route to view tracking data
 app.get('/api/admin/tracking', authenticateAdmin, async (req, res) => {
   try {
-    const trackFile = path.join(dataDir, 'track.json');
-    const data = await fs.readFile(trackFile, 'utf8');
-    const trackingLogs = JSON.parse(data);
+    const tracking = await trackingCollection.find()
+      .sort({ timestamp: -1 }) // Most recent first
+      .toArray();
 
     res.json({
       success: true,
-      tracking: trackingLogs.reverse() // Most recent first
+      tracking
     });
   } catch (error) {
-    if (error.code === 'ENOENT') {
-      res.json({ success: true, tracking: [] });
-    } else {
-      console.error('Admin tracking error:', error);
-      res.status(500).json({ error: 'Internal server error' });
-    }
+    console.error('Admin tracking error:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 
 // Health check endpoint
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'OK', timestamp: new Date().toISOString() });
+app.get('/api/health', async (req, res) => {
+  try {
+    // Test MongoDB connection
+    await db.command({ ping: 1 });
+    res.json({ 
+      status: 'OK', 
+      database: 'connected',
+      timestamp: new Date().toISOString() 
+    });
+  } catch (err) {
+    res.status(500).json({ 
+      status: 'unhealthy',
+      database: 'disconnected',
+      error: err.message,
+      timestamp: new Date().toISOString() 
+    });
+  }
 });
 
 // Error handling middleware
 app.use((error, req, res, next) => {
   console.error('Server error:', error);
   res.status(500).json({ error: 'Internal server error' });
+});
+
+// Graceful shutdown
+process.on('SIGINT', async () => {
+  try {
+    await client.close();
+    console.log('MongoDB connection closed');
+    process.exit(0);
+  } catch (err) {
+    console.error('Error closing MongoDB connection:', err);
+    process.exit(1);
+  }
 });
 
 app.listen(PORT, () => {

