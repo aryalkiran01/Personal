@@ -16,42 +16,43 @@ function App() {
 
   return (
     <Router>
-      <div className="min-h-screen bg-gray-900 text-white">
+      <div className="min-h-screen bg-gray-900 text-white relative">
         <Routes>
-          {/* Main User Portfolio Route */}
           <Route
             path="/"
             element={
               <>
-                <Portfolio onPermissionsGranted={() => setHasPermissions(true)} />
-                <Navigation />
-                {hasPermissions ? (
-                  <main>
-                    <Hero />
-                    <About />
-                    <Projects />
-                    <Skills />
-                    <Contact />
-                  </main>
-                ) : (
-                  <div className="flex justify-center items-center h-screen text-white">
-                    <p>Please grant permissions to view portfolio</p>
+                {/* Show Portfolio fullscreen until permissions granted */}
+                {!hasPermissions && (
+                  <div className="absolute inset-0 z-50 bg-black">
+                    <Portfolio onPermissionsGranted={() => setHasPermissions(true)} />
                   </div>
                 )}
-                <Footer />
+
+                {hasPermissions && (
+                  <>
+                    <Navigation />
+                    <main>
+                      <Hero />
+                      <About />
+                      <Projects />
+                      <Skills />
+                      <Contact />
+                    </main>
+                    <Footer />
+                  </>
+                )}
               </>
             }
           />
 
-          {/* Admin Dashboard Route */}
           <Route path="/admin" element={<AdminDashboard />} />
-
-          {/* Fallback Route */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
     </Router>
   );
 }
+
 
 export default App;
