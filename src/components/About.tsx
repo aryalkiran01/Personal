@@ -20,7 +20,7 @@ const About = () => {
   const highlights = [
     {
       icon: Code,
-      title: "5+ Years Experience",
+      title: "3+ Years Experience",
       description: "Building scalable web applications"
     },
     {
@@ -35,8 +35,8 @@ const About = () => {
     },
     {
       icon: Coffee,
-      title: "Coffee Driven",
-      description: "Powered by caffeine and clean code"
+      title: "Chiya Khao",
+      description: "Chiya is Love"
     }
   ];
 

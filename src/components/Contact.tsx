@@ -45,8 +45,8 @@ const Contact = () => {
     {
       icon: Mail,
       label: 'Email',
-      value: import.meta.env.VITE_CONTACT_EMAIL || 'aryalkiran21@gmail.com',
-      href: `mailto:${import.meta.env.VITE_CONTACT_EMAIL || 'aryalkiran21@gmail.com'}`
+      value: "aryalkiran21@gmail.com",
+      href: `mailto:'aryalkiran21@gmail.com'}`
     },
     {
       icon: Phone,

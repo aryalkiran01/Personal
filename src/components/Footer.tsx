@@ -85,7 +85,7 @@ const Footer = () => {
             <h3 className="font-semibold text-white mb-4">Get in Touch</h3>
             <div className="space-y-2 text-gray-400">
               <p>Butwal, Nepal</p>
-              <p>{import.meta.env.VITE_CONTACT_EMAIL || 'aryalkiran21@gmail.com'}</p>
+              <p>aryalkiran21@gmail.com</p>
               <p>+977 98 275 142 82</p>
             </div>
           </div>
