@@ -283,10 +283,10 @@ process.on('SIGINT', async () => {
 });
 
 app.listen(PORT, () => {
-  console.log(`\n🚀 Server running on ${BASE_URL}`);
-  console.log(`\n📊 Admin Endpoints:`);
-  console.log(`   ↳ Contacts: ${BASE_URL}/api/admin/contacts`);
-  console.log(`   ↳ Tracking: ${BASE_URL}/api/admin/tracking`);
-  console.log(`\n💬 Public Endpoint:`);
-  console.log(`   ↳ Contact: ${BASE_URL}/api/contact\n`);
+  console.log(`\n Server running on ${BASE_URL}`);
+  console.log(`\n Admin Endpoints:`);
+  console.log(`    Contacts: ${BASE_URL}/api/admin/contacts`);
+  console.log(`    Tracking: ${BASE_URL}/api/admin/tracking`);
+  console.log(`\n Public Endpoint:`);
+  console.log(`    Contact: ${BASE_URL}/api/contact\n`);
 });
