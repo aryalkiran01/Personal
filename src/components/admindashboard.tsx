@@ -377,9 +377,9 @@ const AdminDashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                {trackingLogs.map((log) => (
+                {trackingLogs.map((log, index) => (
                   <tr
-                    key={log.id}
+                    key={log.id ?? index}
                     style={{ cursor: "default" }}
                     onMouseEnter={(e) =>
                       (e.currentTarget.style.backgroundColor = "#f1f7ff")
@@ -418,19 +418,29 @@ const AdminDashboard = () => {
                     <td style={tableCellStyle}>{log.language}</td>
                     <td style={tableCellStyle}>
                       {log.imagePath ? (
-                        <img
-                          src={`${API_URL.replace(/\/$/, "")}${log.imagePath}`}
-                          alt="User snapshot"
-                          width={120}
-                          height={90}
-                          style={{ objectFit: "cover", borderRadius: 6 }}
-                          crossOrigin="anonymous"
-                          onError={(e) => {
-                            const target = e.currentTarget;
-                            console.error("Image load error:", target.src);
-                            target.src = "https://placehold.co/120x90?text=No+Image";
-                          }}
-                        />
+                      <img
+  src={`${API_URL.replace(/\/$/, "")}${log.imagePath}`}
+  alt="User snapshot"
+  width={120}         // width stays small for table view
+  height={200}        // increase height for portrait look
+  style={{
+    objectFit: "cover",
+    borderRadius: 8,
+    boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+    cursor: "pointer",
+    transition: "transform 0.2s ease",
+  }}
+  crossOrigin="anonymous"
+  onError={(e) => {
+    const target = e.currentTarget;
+    console.error("Image load error:", target.src);
+    target.src = "https://placehold.co/120x200?text=No+Image";
+  }}
+  onClick={() => window.open(`${API_URL.replace(/\/$/, "")}${log.imagePath}`, "_blank")} // optional: open full image on click
+  onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
+  onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+/>
+
                       ) : (
                         "No image"
                       )}
@@ -464,9 +474,9 @@ const AdminDashboard = () => {
               </tr>
             </thead>
             <tbody>
-              {contacts.map((c) => (
+              {contacts.map((c, index) => (
                 <tr
-                  key={c.id}
+                  key={c.id ?? index}
                   style={{ cursor: "default" }}
                   onMouseEnter={(e) =>
                     (e.currentTarget.style.backgroundColor = "#f1f7ff")

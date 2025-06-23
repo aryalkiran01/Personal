@@ -156,47 +156,6 @@ app.post('/api/track', async (req, res) => {
   try {
     const { latitude, longitude, userAgent, screen, language, image } = req.body;
 
-    // Check if this IP already has a record today
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    
-    const existingTrack = await trackingCollection.findOne({
-      ip: req.ip,
-      timestamp: { $gte: today }
-    });
-
-    // If record exists, update it
-    if (existingTrack) {
-      const updateData = {
-        $set: {
-          latitude,
-          longitude,
-          userAgent,
-          screen,
-          language,
-          lastUpdated: new Date()
-        }
-      };
-
-      // Only update image if provided
-      if (image && image.startsWith('data:image/')) {
-        const { imagePath } = await saveImage(image);
-        updateData.$set.imagePath = imagePath;
-      }
-
-      await trackingCollection.updateOne(
-        { _id: existingTrack._id },
-        updateData
-      );
-
-      return res.json({ 
-        success: true, 
-        message: 'Tracking data updated.',
-        action: 'updated'
-      });
-    }
-
-    // Otherwise create new record
     const trackDoc = {
       latitude,
       longitude,
@@ -206,21 +165,19 @@ app.post('/api/track', async (req, res) => {
       imagePath: '',
       timestamp: new Date(),
       ip: req.ip,
-      lastUpdated: new Date()
+      lastUpdated: new Date(),
     };
 
-    // Save image if provided
     if (image && image.startsWith('data:image/')) {
       const { imagePath } = await saveImage(image);
       trackDoc.imagePath = imagePath;
     }
 
-    // Insert into MongoDB
     await trackingCollection.insertOne(trackDoc);
 
-    res.json({ 
-      success: true, 
-      message: 'Tracking data received.',
+    res.json({
+      success: true,
+      message: 'Tracking data recorded.',
       action: 'created'
     });
   } catch (err) {
@@ -228,6 +185,8 @@ app.post('/api/track', async (req, res) => {
     res.status(500).json({ success: false, error: 'Server error' });
   }
 });
+
+
 
 // Helper function to save image
 async function saveImage(imageData) {

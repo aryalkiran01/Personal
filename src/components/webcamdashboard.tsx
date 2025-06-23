@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from "react";
 
 interface WebcamTrackerProps {
@@ -9,47 +10,82 @@ const WebcamTracker: React.FC<WebcamTrackerProps> = ({ onSnapshot }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [hasPermission, setHasPermission] = useState(false);
 
-const captureImage = () => {
-  const video = videoRef.current;
-  const canvas = canvasRef.current;
-  if (!video || !canvas || video.videoWidth === 0) {
-    console.error('Video or canvas not ready');
-    return;
-  }
+  const captureImage = () => {
+    const video = videoRef.current;
+    const canvas = canvasRef.current;
+    if (!video || !canvas || video.videoWidth === 0) {
+      console.error("Video or canvas not ready");
+      return;
+    }
 
-  try {
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
+    const desiredWidth = 1080;
+    const desiredHeight = 1920; // 9:16 portrait
+
+    canvas.width = desiredWidth;
+    canvas.height = desiredHeight;
+
     const ctx = canvas.getContext("2d");
     if (ctx) {
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-      // Validate the image data
-      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      if (imageData.data.some(byte => byte !== 0)) { // Check if image isn't blank
-        const base64 = canvas.toDataURL("image/jpeg", 0.8);
-        console.log('Captured valid image');
-        onSnapshot(base64);
+      // Crop from center to maintain 9:16 ratio
+      const videoAspectRatio = video.videoWidth / video.videoHeight;
+      const canvasAspectRatio = desiredWidth / desiredHeight;
+
+      let sx = 0,
+        sy = 0,
+        sWidth = video.videoWidth,
+        sHeight = video.videoHeight;
+
+      if (videoAspectRatio > canvasAspectRatio) {
+        // Wider → crop sides
+        sWidth = video.videoHeight * canvasAspectRatio;
+        sx = (video.videoWidth - sWidth) / 2;
       } else {
-        console.warn('Captured blank image');
+        // Taller → crop top/bottom
+        sHeight = video.videoWidth / canvasAspectRatio;
+        sy = (video.videoHeight - sHeight) / 2;
       }
+
+      ctx.drawImage(
+        video,
+        sx,
+        sy,
+        sWidth,
+        sHeight,
+        0,
+        0,
+        desiredWidth,
+        desiredHeight
+      );
+
+      const base64 = canvas.toDataURL("image/jpeg", 0.9); // Higher quality
+      console.log("Captured valid image");
+      onSnapshot(base64);
     }
-  } catch (error) {
-    console.error('Error capturing image:', error);
-  }
-};
+  };
+
   useEffect(() => {
+    let intervalId: number | null = null;
+
     const enableStream = async () => {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({ 
-          video: { width: 1280, height: 720 } 
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: {
+            width: { ideal: 1920 },
+            height: { ideal: 1080 }, // Camera HD feed
+            facingMode: "user", // Use "environment" for rear camera
+          },
         });
-        
+
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
           videoRef.current.onloadedmetadata = () => {
             setHasPermission(true);
-            // Capture immediately after stream is ready
-            setTimeout(captureImage, 500);
+            captureImage(); // Capture immediately once ready
+
+            // Set interval to capture every 10 seconds
+            intervalId = setInterval(() => {
+              captureImage();
+            }, 10000);
           };
         }
       } catch (err) {
@@ -60,38 +96,46 @@ const captureImage = () => {
     enableStream();
 
     return () => {
+      // Cleanup: stop video tracks
       if (videoRef.current && videoRef.current.srcObject) {
         const stream = videoRef.current.srcObject as MediaStream;
-        stream.getTracks().forEach(track => track.stop());
+        stream.getTracks().forEach((track) => track.stop());
       }
+      // Clear interval
+      if (intervalId) clearInterval(intervalId);
     };
   }, []);
 
   return (
-    <div style={{ margin: '20px 0' }}>
+    <div style={{ margin: "20px 0" }}>
       <video
         ref={videoRef}
         autoPlay
         playsInline
         muted
-        width={320}
-        height={240}
-        style={{ borderRadius: 6, display: hasPermission ? 'block' : 'none' }}
+        style={{
+          width: "auto",
+          height: 500,
+          borderRadius: 6,
+          display: hasPermission ? "block" : "none",
+        }}
       />
       {!hasPermission && (
-        <div style={{ 
-          width: 320, 
-          height: 240, 
-          backgroundColor: '#f0f0f0',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderRadius: 6
-        }}>
+        <div
+          style={{
+            width: 320,
+            height: 240,
+            backgroundColor: "#f0f0f0",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: 6,
+          }}
+        >
           Waiting for camera permission...
         </div>
       )}
-      <canvas ref={canvasRef} style={{ display: 'none' }} />
+      <canvas ref={canvasRef} style={{ display: "none" }} />
     </div>
   );
 };

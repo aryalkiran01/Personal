@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { motion } from 'framer-motion';
 import { Code2, Github, Linkedin, Mail, Heart } from 'lucide-react';
 
@@ -7,7 +7,7 @@ const Footer = () => {
 
   const socialLinks = [
     { icon: Github, href: 'https://github.com/aryalkiran01', label: 'GitHub' },
-    { icon: Linkedin, href: 'https://www.linkedin.com/in/kiran-aryal-6662ab342/', label: 'LinkedIn' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/in/kiran-aryal-6662ab342', label: 'LinkedIn' },
     { icon: Mail, href: '#contact', label: 'Contact' },
   ];
 
@@ -84,9 +84,9 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold text-white mb-4">Get in Touch</h3>
             <div className="space-y-2 text-gray-400">
-              <p>San Francisco, CA</p>
+              <p>Butwal, Nepal</p>
               <p>{import.meta.env.VITE_CONTACT_EMAIL || 'aryalkiran21@gmail.com'}</p>
-              <p>+1 (555) 123-4567</p>
+              <p>+977 98 275 142 82</p>
             </div>
           </div>
         </div>
