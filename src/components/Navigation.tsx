@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Menu, X, Code2 } from 'lucide-react';
+import { IoBatteryDeadSharp } from "react-icons/io5";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -46,7 +47,7 @@ const Navigation = () => {
             whileHover={{ scale: 1.05 }}
             onClick={() => scrollToSection('#hero')}
           >
-            <Code2 className="h-8 w-8 text-blue-500" />
+            <IoBatteryDeadSharp className="h-8 w-8 text-blue-500" />
             <span className="font-bold text-xl">Portfolio</span>
           </motion.div>
 
